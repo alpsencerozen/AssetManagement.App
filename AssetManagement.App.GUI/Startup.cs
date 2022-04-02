@@ -1,3 +1,4 @@
+using AssetManagement.App.GUI.Provider;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +27,13 @@ namespace AssetManagement.App.GUI
             services.AddControllersWithViews();
 
             services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+
+            services.AddHttpClient<AssetProvider>(options =>
+            {
+                options.BaseAddress = new Uri(Configuration["mybaseAdres"]);
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

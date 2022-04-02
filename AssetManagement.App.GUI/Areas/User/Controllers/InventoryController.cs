@@ -4,25 +4,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AssetManagement.App.GUI.Areas.Admin.Controllers
+namespace AssetManagement.App.GUI.Areas.User.Controllers
 {
+    [Area("User")]
     public class InventoryController : Controller
     {
-        [Area("Admin")]
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult AddAsset(int a)
+        public IActionResult AddAsset()
         {
             return View();
         }
 
-        [HttpPost]
-        public IActionResult AddAsset()
+        public IActionResult AddAssetNoBarcode()
         {
-            return RedirectToAction("Index", "Inventory");
+            return View();
         }
     }
 }

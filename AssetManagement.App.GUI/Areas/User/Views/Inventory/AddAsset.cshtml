@@ -1,0 +1,92 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_UserInventoryLayout.cshtml";
+}
+
+
+
+<form>
+    <div class="form-row mt-3 m-3">
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Barkod</label>
+            <input type="text" class="form-control" id="urunBarkod" placeholder="Barkod">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputState">Ürün Tipi</label>
+            <select id="urunTipi" class="form-control">
+                <option selected>Seçiniz...</option>
+                <option>...</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputState">Ürün Grubu</label>
+            <select id="urunGrubu" class="form-control">
+                <option selected>Seçiniz...</option>
+                <option>...</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputDate">Giriş Tarihi</label>
+            <input type="datetime-local" class="form-control" id="entryDate" placeholder="Giriş Tarihi">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputState">Marka</label>
+            <select id="urunMarka" class="form-control">
+                <option selected>Seçiniz...</option>
+                <option>...</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputState">Model</label>
+            <select id="urunModel" class="form-control">
+                <option selected>Seçiniz...</option>
+                <option>...</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputEmail4">Ürün Maliyet</label>
+            <input type="text" class="form-control" id="urunMaliyet" placeholder="Ürün Maliyet">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputState">Ürün Para Birimi</label>
+            <select id="urunParaBirim" class="form-control">
+                <option selected>Seçiniz...</option>
+                <option>...</option>
+            </select>
+        </div><div class="form-group col-md-3">
+            <label for="inputEmail4">Ürün Güncel Fiyat</label>
+            <input type="text" class="form-control" id="urunGuncelFiyat" placeholder="Ürün Güncel Fiyat">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputState">Ürün Güncel Fiyat Para Birimi</label>
+            <select id="urunGuncelParaBirim" class="form-control">
+                <option selected>Seçiniz...</option>
+                <option>...</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input " id="customSwitch1">
+                <label class="custom-control-label" for="customSwitch1">Garanti kapsamında</label>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputDate">Emeklilik Tarihi</label>
+            <input type="datetime-local" class="form-control" id="retireDate" placeholder="Emeklilik Tarihi" disabled>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="aciklamaAlani">Açıklama</label>
+            <textarea class="form-control" id="aciklamaAlani" rows="3"></textarea>
+        </div>
+        <div class="form-group ">
+            <div class="col-md-12 ">
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+            </div>
+        </div>
+        <div class="form-group ">
+            <div class="col-md-12 ">
+                <a class="btn btn-dark" href="/User/Inventory">Iptal</a>
+            </div>
+        </div>
+    </div>
+</form>
