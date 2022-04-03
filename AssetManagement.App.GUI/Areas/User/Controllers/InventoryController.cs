@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AssetManagement.App.GUI.Provider;
+using AssetManagement.App.GUI.Models;
+using AssetManagement.App.GUI.Models.APIModels;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +12,27 @@ namespace AssetManagement.App.GUI.Areas.User.Controllers
     [Area("User")]
     public class InventoryController : Controller
     {
+        AssetProvider _assetProvider;
+
+        public InventoryController(AssetProvider assetProvider)
+        {
+            _assetProvider = assetProvider;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult AddAsset()
+        [HttpGet]
+        public async Task<IActionResult> AddAsset()
+        {
+            var assetChoices = await _assetProvider.GetAssetDetailChoices();
+            return View(assetChoices);
+        }
+
+        [HttpPost]
+        public IActionResult AddAsset(AssetDetailChoicesDTO selectedChoices)
         {
             return View();
         }
