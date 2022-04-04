@@ -34,6 +34,49 @@ namespace AssetManagement.App.GUI.Provider
             }
         }
 
+        public async Task<string> CreateAsset(AssetDetailChoicesDTO choices)
+        {
+            var choicesJson = new StringContent(JsonConvert.SerializeObject(choices));
+
+            choicesJson.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+            string outcome = "";
+
+            try
+            {
+                var responseValue = await _client.PostAsync("/api/addasset/AssetDetailChoice", choicesJson);
+                if (responseValue.IsSuccessStatusCode)
+                {
+                    await responseValue.Content.ReadAsStringAsync();
+                }
+                outcome = "basarili";
+            
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return outcome;
+        }
+
+        public async Task<IEnumerable<AssetDTO>> GetAssets()
+        {
+            var choices = await _client.GetAsync("Asset");
+
+            if (choices.IsSuccessStatusCode)
+            {
+                var choicesString = await choices.Content.ReadAsStringAsync();
+                var choicesJson = JsonConvert.DeserializeObject<IEnumerable<AssetDTO>>(choicesString);
+                return choicesJson;
+            }
+            else
+            {
+
+                return null;
+            }
+        }
+
 
     }
 }

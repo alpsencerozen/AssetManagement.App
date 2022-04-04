@@ -1,0 +1,44 @@
+﻿
+@model IEnumerable<AssetDTO>
+
+@{
+    Layout = "~/Views/Shared/_UserInventoryLayout.cshtml";
+}
+
+<table id="datatable">
+    <thead>
+        <tr>
+            <th>
+                Register Number
+            </th>
+            <th>
+                Asset Type
+            </th>
+            <th>
+                BrandModel
+            </th>
+            <th>
+                Description
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.RegistrationNumber
+                </td>
+                <td>
+                    @item.AssetTypeID
+                </td>
+                <td>
+                    @item.BrandModelID
+                </td>
+                <td>
+                    @item.Description
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

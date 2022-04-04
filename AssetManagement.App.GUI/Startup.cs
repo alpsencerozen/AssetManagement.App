@@ -30,7 +30,7 @@ namespace AssetManagement.App.GUI
 
             services.AddHttpClient<AssetProvider>(options =>
             {
-                options.BaseAddress = new Uri(Configuration["mybaseAdres"]);
+                options.BaseAddress = new Uri(Configuration["mybaseKestrelAdres"]);
             });
 
 

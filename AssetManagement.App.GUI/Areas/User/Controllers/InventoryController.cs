@@ -32,14 +32,23 @@ namespace AssetManagement.App.GUI.Areas.User.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddAsset(AssetDetailChoicesDTO selectedChoices)
+        public async Task<IActionResult> AddAsset(AssetDetailChoicesDTO selectedChoices)
         {
-            return View();
+            await _assetProvider.CreateAsset(selectedChoices);
+            return Redirect("Index");
         }
 
         public IActionResult AddAssetNoBarcode()
         {
             return View();
         }
+
+        public async Task<IActionResult> GetMyAssets()
+        {
+            IEnumerable<AssetDTO> assets = await _assetProvider.GetAssets();
+            return View(assets);
+        }
+
+
     }
 }

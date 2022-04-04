@@ -1,74 +1,66 @@
-﻿@using AssetManagement.App.GUI.Models.APIModels;
-@model AssetDetailChoicesDTO
+﻿@model AssetDetailChoicesDTO
 
 @{
     Layout = "~/Views/Shared/_UserInventoryLayout.cshtml";
 }
 
 
-@*asp-form kullan*@
-<form>
+<form asp-action="AddAsset" asp-controller="Inventory" asp-area="User">
     <div class="form-row mt-3 m-3">
         <div class="form-group col-md-6">
             <label for="inputEmail4">Barkod</label>
-            <input type="text" class="form-control" id="urunBarkod" placeholder="Barkod">
+            <input asp-for="@Model.Barcode" type="text" class="form-control" id="urunBarkod" placeholder="Barkod">
         </div>
         <div class="form-group col-md-6">
             <label for="inputState">Ürün Tipi</label>
-            <select id="urunTipi" class="form-control">
+            <select asp-for="@Model.AssetTypeID" asp-items="@Model.AssetTypeDesc.Select(select=> new SelectListItem { Text = select.Description, Value = select.ID.ToString() })" id="urunTipi" class="form-control">
                 <option selected>Seçiniz...</option>
-                <option>...</option>
             </select>
         </div>
         <div class="form-group col-md-6">
             <label for="inputState">Ürün Grubu</label>
-            <select id="urunGrubu" class="form-control">
+            <select asp-for="@Model.AssetGroupID" asp-items="@Model.AssetGroupDesc.Select(select=> new SelectListItem { Text = select.Description, Value = select.ID.ToString() })" id="urunGrubu" class="form-control">
                 <option selected>Seçiniz...</option>
-                <option>...</option>
             </select>
         </div>
         <div class="form-group col-md-6">
             <label for="inputDate">Giriş Tarihi</label>
-            <input type="datetime-local" class="form-control" id="entryDate" placeholder="Giriş Tarihi">
+            <input asp-for="@Model.EntryDate" type="datetime-local" value="@DateTime.Now.ToString()" class="form-control" id="entryDate" placeholder="Giriş Tarihi">
         </div>
         <div class="form-group col-md-6">
             <label for="inputState">Marka</label>
-            <select id="urunMarka" class="form-control">
+            <select asp-for="@Model.BrandModelID" asp-items="@Model.BrandModel.Where(x=>x.isBrand==true).ToList().Select(select=> new SelectListItem { Text = select.Description, Value = select.ID.ToString() })" id="urunMarka" class="form-control">
                 <option selected>Seçiniz...</option>
-                <option>...</option>
             </select>
         </div>
         <div class="form-group col-md-6">
             <label for="inputState">Model</label>
-            <select id="urunModel" class="form-control">
+            <select asp-for="@Model.BrandModelID" asp-items="@Model.BrandModel.Where(x=>x.isBrand==false).ToList().Select(select=> new SelectListItem { Text = select.Description, Value = select.ID.ToString() })" id="urunModel" class="form-control" disabled>
                 <option selected>Seçiniz...</option>
-                <option>...</option>
             </select>
         </div>
         <div class="form-group col-md-3">
             <label for="inputEmail4">Ürün Maliyet</label>
-            <input type="text" class="form-control" id="urunMaliyet" placeholder="Ürün Maliyet">
+            <input asp-for="@Model.Cost" type="number" class="form-control" id="urunMaliyet" placeholder="Ürün Maliyet">
         </div>
         <div class="form-group col-md-3">
             <label for="inputState">Ürün Para Birimi</label>
-            <select id="urunParaBirim" class="form-control">
+            <select asp-for="@Model.CostCurrencyID" asp-items="@Model.CostCurrency.Select(select=> new SelectListItem { Text = select.Description, Value = select.ID.ToString() })" id="urunParaBirim" class="form-control">
                 <option selected>Seçiniz...</option>
-                <option>...</option>
             </select>
         </div><div class="form-group col-md-3">
             <label for="inputEmail4">Ürün Güncel Fiyat</label>
-            <input type="text" class="form-control" id="urunGuncelFiyat" placeholder="Ürün Güncel Fiyat">
+            <input asp-for="@Model.Price" type="number" class="form-control" id="urunGuncelFiyat" placeholder="Ürün Güncel Fiyat">
         </div>
         <div class="form-group col-md-3">
             <label for="inputState">Ürün Güncel Fiyat Para Birimi</label>
-            <select id="urunGuncelParaBirim" class="form-control">
+            <select asp-for="@Model.PriceCurrencyID" asp-items="@Model.PriceCurrency.Select(select=> new SelectListItem { Text = select.Description, Value = select.ID.ToString() })" id="urunGuncelParaBirim" class="form-control">
                 <option selected>Seçiniz...</option>
-                <option>...</option>
             </select>
         </div>
         <div class="form-group col-md-6">
             <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input " id="customSwitch1">
+                <input asp-for="@Model.hasGuarrantee" type="checkbox" class="custom-control-input " id="customSwitch1">
                 <label class="custom-control-label" for="customSwitch1">Garanti kapsamında</label>
             </div>
         </div>
@@ -78,7 +70,7 @@
         </div>
         <div class="form-group col-md-12">
             <label for="aciklamaAlani">Açıklama</label>
-            <textarea class="form-control" id="aciklamaAlani" rows="3"></textarea>
+            <textarea asp-for="@Model.AssetDesc" class="form-control" id="aciklamaAlani" rows="3"></textarea>
         </div>
         <div class="form-group ">
             <div class="col-md-12 ">
@@ -92,3 +84,21 @@
         </div>
     </div>
 </form>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $("#urunMarka").change(function () {
+            if ($("#urunMarka").val() == "Seçiniz...") {
+                $("#urunModel").prop('disabled', true);;
+            }
+            else {
+                $("#urunModel").prop('disabled', false);
+            }
+        });
+    });
+    
+</script>
+

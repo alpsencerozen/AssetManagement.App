@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,10 +11,12 @@ namespace AssetManagement.App.GUI.Models.APIModels
         public int ID { get; set; }
         public bool hasBarcode { get; set; }
         public string Barcode { get; set; }
+
         public List<AssetGroupDTO> AssetGroupDesc { get; set; }
         public int AssetGroupID { get; set; }
 
         public List<AssetTypeDTO> AssetTypeDesc { get; set; }
+
         public int AssetTypeID { get; set; }
 
         public List<BrandModelDTO> BrandModel { get; set; }
