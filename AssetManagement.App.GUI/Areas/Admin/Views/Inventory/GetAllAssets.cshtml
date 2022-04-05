@@ -1,8 +1,9 @@
 ﻿
+
 @model IEnumerable<AssetListDTO>
 
 @{
-    Layout = "~/Views/Shared/_UserInventoryLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminInventoryLayout.cshtml";
 }
 
 <div class="card-body">
@@ -35,10 +36,10 @@
                 {
                     <tr>
                         <td>
-                            @item.RegistrationNumber
+                            <a href="/admin/inventory/viewasset/@item.ID" >@item.RegistrationNumber</a>
                         </td>
                         <td>
-                            @item.Barcode
+                            <a href="/admin/inventory/viewasset/@item.ID">@item.Barcode</a>
                         </td>
                         <td>
                             @item.AssetTypeName
@@ -58,7 +59,3 @@
         </table>
     </div>
 </div>
-
-
-        
-

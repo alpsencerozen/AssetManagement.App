@@ -45,7 +45,7 @@ namespace AssetManagement.App.GUI.Areas.User.Controllers
 
         public async Task<IActionResult> GetMyAssets()
         {
-            IEnumerable<AssetDTO> assets = await _assetProvider.GetAssets();
+            IEnumerable<AssetListDTO> assets = await _assetProvider.GetAssetListItems();
             return View(assets);
         }
 

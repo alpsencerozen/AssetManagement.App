@@ -62,13 +62,63 @@ namespace AssetManagement.App.GUI.Provider
 
         public async Task<IEnumerable<AssetDTO>> GetAssets()
         {
-            var choices = await _client.GetAsync("Asset");
+            var choices = await _client.GetAsync("/api/Asset");
 
             if (choices.IsSuccessStatusCode)
             {
                 var choicesString = await choices.Content.ReadAsStringAsync();
                 var choicesJson = JsonConvert.DeserializeObject<IEnumerable<AssetDTO>>(choicesString);
                 return choicesJson;
+            }
+            else
+            {
+
+                return null;
+            }
+        }
+
+        public async Task<AssetDTO> GetAssets(int id)
+        {
+            var choices = await _client.GetAsync($"/api/asset/api/getassetbyid/?assetID={id}");
+
+            if (choices.IsSuccessStatusCode)
+            {
+                var choicesString = await choices.Content.ReadAsStringAsync();
+                var choicesJson = JsonConvert.DeserializeObject<AssetDTO>(choicesString);
+                return choicesJson;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<IEnumerable<AssetListDTO>> GetAssetListItems()
+        {
+            var assets = await _client.GetAsync("/api/getassetlist/Asset");
+
+            if (assets.IsSuccessStatusCode)
+            {
+                var assetsString = await assets.Content.ReadAsStringAsync();
+                var assetsJson = JsonConvert.DeserializeObject<IEnumerable<AssetListDTO>>(assetsString);
+                return assetsJson;
+            }
+            else
+            {
+
+                return null;
+            }
+        }
+
+        public async Task<AssetListDTO> GetAssetListItems(int id)
+        {
+            var assets = await _client.GetAsync($"/api/getassetlist/Asset/{id}");
+
+            if (assets.IsSuccessStatusCode)
+            {
+                var assetsString = await assets.Content.ReadAsStringAsync();
+                var assetsJson = JsonConvert.DeserializeObject<AssetListDTO>(assetsString);
+                return assetsJson;
             }
             else
             {

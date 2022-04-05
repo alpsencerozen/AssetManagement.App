@@ -1,0 +1,16 @@
+﻿
+
+@model AssetDTO
+
+@{
+    Layout = "~/Views/Shared/_AdminInventoryLayout.cshtml";
+}
+
+<div class="card-body">
+    Barcode: @Model.hasBarcode.Value <br />
+    Register Number: @Model.RegistrationNumber.Value <br />
+    Company Id: @Model.CompanyID <br />
+    Cost: @Model.Cost
+</div>
+
+
