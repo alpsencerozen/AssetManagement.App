@@ -27,6 +27,7 @@ namespace AssetManagement.App.GUI.Models.APIModels
 
         //for no barcode
         public List<UnitDTO> Unit { get; set; }
+        public string AssetUnit { get; set; }
         public decimal Quantity { get; set; }
         public decimal Cost { get; set; }
         public List<CurrencyDTO> CostCurrency { get; set; }

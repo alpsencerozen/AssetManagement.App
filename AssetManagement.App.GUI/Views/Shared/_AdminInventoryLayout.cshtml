@@ -20,7 +20,23 @@
 
     <!-- Custom styles for this template-->
     <link href="~/templates/startbootstrap-sb-admin-2-gh-pages/css/sb-admin-2.css" rel="stylesheet" />
-
+    <style>
+        #actionLink1 {
+            font-size: 1.5rem;
+        }
+        #actionLink2 {
+            font-size: 1.5rem;
+        }
+        #actionLink3 {
+            font-size: 1.5rem;
+        }
+        #actionLink4 {
+            font-size: 1.5rem;
+        }
+        #actionLink5 {
+            font-size: 1.5rem;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -307,22 +323,23 @@
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
                         <ul class="navbar-nav nav-fill w-100">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" style="font-size: 1.5rem" asp-area="" asp-controller="" asp-action="">Takip Edilen Varlıklar</a>
+                                <a id="actionLink1" class="nav-link text-dark btn btn-link disabled" asp-area="" asp-controller="" asp-action="">Takip Edilen Varlıklar</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" style="font-size: 1.5rem" asp-area="" asp-controller="" asp-action="">Varlıklarım</a>
+                                <a id="actionLink2" class="nav-link text-dark btn btn-link disabled" asp-area="" asp-controller="" asp-action="">Varlıklarım</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" style="font-size: 1.5rem" asp-area="" asp-controller="" asp-action="">Ekibimin Varlıkları</a>
+                                <a id="actionLink3" class="nav-link text-dark btn btn-link disabled" asp-area="" asp-controller="" asp-action="">Ekibimin Varlıkları</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" style="font-size: 1.5rem" asp-area="Admin" asp-controller="Inventory" asp-action="GetAllAssets">Tüm Varlıklar</a>
+                                <a id="actionLink4" class="nav-link text-dark btn btn-link" asp-area="Admin" asp-controller="Inventory" asp-action="GetAllAssets">Tüm Varlıklar</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" style="font-size: 1.5rem" asp-area="" asp-controller="" asp-action="">Alarm</a>
+                                <a id="actionLink5" class="nav-link text-dark btn btn-link disabled" asp-area="" asp-controller="" asp-action="">Alarm</a>
                             </li>
                         </ul>
                     </nav>
+                    <hr />
                 </div>
                 <!-- View'a tasinacak -->
                 <div class="container-fluid">

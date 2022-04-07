@@ -34,6 +34,23 @@ namespace AssetManagement.App.GUI.Provider
             }
         }
 
+        public async Task<AssetDetailChoicesDTO> GetAssetDetailChoicesById(int id)
+        {
+            var choices = await _client.GetAsync($"/api/AssetDetailChoice/api/getassetdetailbyid/{id}");
+
+            if (choices.IsSuccessStatusCode)
+            {
+                var choicesString = await choices.Content.ReadAsStringAsync();
+                var choicesJson = JsonConvert.DeserializeObject<AssetDetailChoicesDTO>(choicesString);
+                return choicesJson;
+            }
+            else
+            {
+
+                return null;
+            }
+        }
+
         public async Task<string> CreateAsset(AssetDetailChoicesDTO choices)
         {
             var choicesJson = new StringContent(JsonConvert.SerializeObject(choices));
@@ -45,6 +62,32 @@ namespace AssetManagement.App.GUI.Provider
             try
             {
                 var responseValue = await _client.PostAsync("/api/addasset/AssetDetailChoice", choicesJson);
+                if (responseValue.IsSuccessStatusCode)
+                {
+                    await responseValue.Content.ReadAsStringAsync();
+                }
+                outcome = "basarili";
+            
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return outcome;
+        }
+
+        public async Task<string> UpdateAsset(AssetDetailChoicesDTO updatedAsset)
+        {
+            var updatedAssetJson = new StringContent(JsonConvert.SerializeObject(updatedAsset));
+
+            updatedAssetJson.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+            string outcome = "";
+
+            try
+            {
+                var responseValue = await _client.PutAsync("/api/updateasset/AssetDetailChoice", updatedAssetJson);
                 if (responseValue.IsSuccessStatusCode)
                 {
                     await responseValue.Content.ReadAsStringAsync();

@@ -27,6 +27,7 @@ namespace AssetManagement.App.GUI.Areas.User.Controllers
         [HttpGet]
         public async Task<IActionResult> AddAsset()
         {
+
             var assetChoices = await _assetProvider.GetAssetDetailChoices();
             return View(assetChoices);
         }
@@ -34,8 +35,13 @@ namespace AssetManagement.App.GUI.Areas.User.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAsset(AssetDetailChoicesDTO selectedChoices)
         {
-            await _assetProvider.CreateAsset(selectedChoices);
-            return Redirect("Index");
+            if (ModelState.IsValid)
+            {
+                await _assetProvider.CreateAsset(selectedChoices);
+                return RedirectToAction("GetMyAssets", "Inventory");
+            }
+            var assetChoices = await _assetProvider.GetAssetDetailChoices();
+            return View(assetChoices);
         }
 
         public IActionResult AddAssetNoBarcode()
@@ -47,6 +53,25 @@ namespace AssetManagement.App.GUI.Areas.User.Controllers
         {
             IEnumerable<AssetListDTO> assets = await _assetProvider.GetAssetListItems();
             return View(assets);
+        }
+
+        public async Task<IActionResult> ViewAsset(int id)
+        {
+            AssetDetailChoicesDTO assetDetails = await _assetProvider.GetAssetDetailChoicesById(id);
+            return View(assetDetails);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ViewAsset(AssetDetailChoicesDTO updatedAsset)
+        {
+
+            if (ModelState.IsValid)
+            {
+                await _assetProvider.UpdateAsset(updatedAsset);
+                return RedirectToAction("GetMyAssets", "Inventory");
+            }
+            AssetDetailChoicesDTO assetDetails = await _assetProvider.GetAssetDetailChoicesById(updatedAsset.ID);
+            return View(assetDetails);
         }
 
 

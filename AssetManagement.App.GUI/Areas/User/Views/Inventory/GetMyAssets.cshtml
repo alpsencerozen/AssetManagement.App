@@ -5,6 +5,14 @@
     Layout = "~/Views/Shared/_UserInventoryLayout.cshtml";
 }
 
+<style>
+    #actionLink2 {
+        font-size: 1.8rem;
+    }
+</style>
+
+<h3>Varlıklarım</h3>
+
 <div class="card-body">
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -35,7 +43,7 @@
                 {
                     <tr>
                         <td>
-                            @item.RegistrationNumber
+                            <a href="/user/inventory/viewasset/@item.ID">@item.RegistrationNumber</a>
                         </td>
                         <td>
                             @item.Barcode
