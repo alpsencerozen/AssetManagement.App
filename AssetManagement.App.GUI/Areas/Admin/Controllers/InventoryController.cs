@@ -1,5 +1,6 @@
 ﻿using AssetManagement.App.GUI.Models.APIModels;
 using AssetManagement.App.GUI.Provider;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace AssetManagement.App.GUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    //[Authorize]
     public class InventoryController : Controller
     {
         AssetProvider _assetProvider;

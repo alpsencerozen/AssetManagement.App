@@ -6,10 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AssetManagement.App.GUI.Areas.User.Controllers
 {
     [Area("User")]
+    [AllowAnonymous]
     public class InventoryController : Controller
     {
         AssetProvider _assetProvider;
