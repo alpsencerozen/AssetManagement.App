@@ -1,4 +1,7 @@
+using AssetManagement.App.GUI.Models.APIModels;
 using AssetManagement.App.GUI.Provider;
+using AssetManagement.App.GUI.Validation;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,12 +30,19 @@ namespace AssetManagement.App.GUI
         {
             services.AddControllersWithViews();
 
-            services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+            services.AddMvc(options => options.EnableEndpointRouting = false)
+                .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0)
+                .AddFluentValidation();
 
             //Fluent validation
-            services.AddControllersWithViews().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>());
+            services.AddTransient<IValidator<AssetDetailChoicesDTO>, AddAssetValidation>();
 
             services.AddHttpClient<AssetProvider>(options =>
+            {
+                options.BaseAddress = new Uri(Configuration["mybaseKestrelAdres"]);
+            });
+
+            services.AddHttpClient<AssetPropertyProvider>(options =>
             {
                 options.BaseAddress = new Uri(Configuration["mybaseKestrelAdres"]);
             });

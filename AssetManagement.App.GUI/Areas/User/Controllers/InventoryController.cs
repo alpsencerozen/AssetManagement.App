@@ -29,7 +29,6 @@ namespace AssetManagement.App.GUI.Areas.User.Controllers
         [HttpGet]
         public async Task<IActionResult> AddAsset()
         {
-
             var assetChoices = await _assetProvider.GetAssetDetailChoices();
             return View(assetChoices);
         }
@@ -47,6 +46,12 @@ namespace AssetManagement.App.GUI.Areas.User.Controllers
         }
 
         public IActionResult AddAssetNoBarcode()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddAssetNoBarcode(AssetDetailChoicesDTO selectedChoices)
         {
             return View();
         }
