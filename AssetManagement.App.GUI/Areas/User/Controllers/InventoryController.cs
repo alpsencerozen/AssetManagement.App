@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using AssetManagement.App.GUI.Repository;
 
 namespace AssetManagement.App.GUI.Areas.User.Controllers
 {
@@ -15,10 +17,12 @@ namespace AssetManagement.App.GUI.Areas.User.Controllers
     public class InventoryController : Controller
     {
         AssetProvider _assetProvider;
+        AssetRepository _assetRepo;
 
-        public InventoryController(AssetProvider assetProvider)
+        public InventoryController(AssetProvider assetProvider, AssetRepository assetRepo)
         {
             _assetProvider = assetProvider;
+            _assetRepo = assetRepo;
         }
 
         public IActionResult Index()
@@ -65,6 +69,7 @@ namespace AssetManagement.App.GUI.Areas.User.Controllers
         public async Task<IActionResult> ViewAsset(int id)
         {
             AssetDetailChoicesDTO assetDetails = await _assetProvider.GetAssetDetailChoicesById(id);
+            ViewBag.BrandList = _assetRepo.GetSelectedBrandList(assetDetails);
             return View(assetDetails);
         }
 
@@ -78,6 +83,7 @@ namespace AssetManagement.App.GUI.Areas.User.Controllers
                 return RedirectToAction("GetMyAssets", "Inventory");
             }
             AssetDetailChoicesDTO assetDetails = await _assetProvider.GetAssetDetailChoicesById(updatedAsset.ID);
+            ViewBag.BrandList = _assetRepo.GetSelectedBrandList(assetDetails);
             return View(assetDetails);
         }
 

@@ -36,7 +36,7 @@ namespace AssetManagement.App.GUI.Provider
 
         public async Task<AssetDetailChoicesDTO> GetAssetDetailChoicesById(int id)
         {
-            var choices = await _client.GetAsync($"/api/AssetDetailChoice/api/getassetdetailbyid/{id}");
+            var choices = await _client.GetAsync($"getassetdetailbyid/{id}");
 
             if (choices.IsSuccessStatusCode)
             {

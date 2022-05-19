@@ -30,13 +30,9 @@
             </select>
             <span asp-validation-for="AssetGroupID" class="text-danger"></span>
         </div>
-        @*<div class="form-group col-md-6">
-            <label for="inputDate">Giriş Tarihi</label>
-            <input asp-for="@Model.EntryDate" type="datetime-local" value="@DateTime.Now.ToShortDateString()" class="form-control" id="entryDate" placeholder="Giriş Tarihi">
-        </div>*@
         <div class="form-group col-md-6">
             <label for="inputDate" data-bs-toggle="tooltip" data-bs-placement="top" title="Ürün giriş tarihi">Giriş Tarihi 🛈</label>
-            <input asp-for="@Model.EntryDate" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" class="form-control" id="entryDate" placeholder="Giriş Tarihi">
+            <input asp-for="@Model.EntryDate" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" class="form-control" id="entryDate" placeholder="Giriş Tarihi">
         </div>
         <div class="form-group col-md-6">
             <label for="inputState">Marka</label>
@@ -54,14 +50,6 @@
             <span asp-validation-for="BrandModelID" class="text-danger"></span>
 
         </div>
-        @*<div class="form-group col-md-6">
-            <label for="inputState">Model</label>
-            <select asp-for="@Model.BrandModelID" asp-items="@Model.BrandModel.Where(x=>x.isBrand==false).ToList().Select(select=> new SelectListItem { Text = select.Description, Value = select.ID.ToString() })" id="urunModel" class="form-control" disabled>
-                <option selected>Seçiniz...</option>
-            </select>
-            <span asp-validation-for="BrandModelID" class="text-danger"></span>
-
-        </div>*@
         <div class="form-group col-md-3">
             <label for="inputEmail4" data-bs-toggle="tooltip" data-bs-placement="top" title="Ürün satın alım maliyeti">Ürün Maliyet 🛈</label>
             <input asp-for="@Model.Cost" type="number" class="form-control" id="urunMaliyet" placeholder="Ürün Maliyet">
@@ -132,7 +120,7 @@
         });
     });
 
-    $("#urunMarka").click(function () {
+    $("#urunMarka").change(function () {
         var brandid = $('#urunMarka').val();
         $.ajax({
             type: "GET",

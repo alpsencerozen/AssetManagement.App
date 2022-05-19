@@ -1,5 +1,6 @@
 using AssetManagement.App.GUI.Models.APIModels;
 using AssetManagement.App.GUI.Provider;
+using AssetManagement.App.GUI.Repository;
 using AssetManagement.App.GUI.Validation;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -47,6 +48,7 @@ namespace AssetManagement.App.GUI
                 options.BaseAddress = new Uri(Configuration["mybaseKestrelAdres"]);
             });
 
+            services.AddScoped<AssetRepository>();
 
         }
 

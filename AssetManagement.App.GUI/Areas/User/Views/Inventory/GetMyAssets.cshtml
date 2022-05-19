@@ -25,6 +25,9 @@
                         Barcode
                     </th>
                     <th>
+                        Asset Group
+                    </th>
+                    <th>
                         Asset Type
                     </th>
                     <th>
@@ -41,26 +44,29 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            <a href="/user/inventory/viewasset/@item.ID">@item.RegistrationNumber</a>
-                        </td>
-                        <td>
-                            @item.Barcode
-                        </td>
-                        <td>
-                            @item.AssetTypeName
-                        </td>
-                        <td>
-                            @item.Price
-                        </td>
-                        <td>
-                            @item.Brand
-                        </td>
-                        <td>
-                            @item.Model
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        <a href="/user/inventory/viewasset/@item.ID">@item.RegistrationNumber</a>
+                    </td>
+                    <td>
+                        @item.Barcode
+                    </td>
+                    <td>
+                        @item.AssetGroupName
+                    </td>
+                    <td>
+                        @item.AssetTypeName
+                    </td>
+                    <td>
+                        @item.Price
+                    </td>
+                    <td>
+                        @item.Brand
+                    </td>
+                    <td>
+                        @item.Model
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
