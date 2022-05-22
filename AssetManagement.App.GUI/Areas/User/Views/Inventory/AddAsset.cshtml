@@ -108,16 +108,14 @@
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
 <script>
-    $(document).ready(function () {
 
-        $("#urunMarka").change(function () {
-            if ($("#urunMarka").val() == "Seçiniz...") {
-                $("#urunModel").prop('disabled', true);;
-            }
-            else {
-                $("#urunModel").prop('disabled', false);
-            }
-        });
+    $("#urunMarka").change(function () {
+        if ($("#urunMarka").val() == "Seçiniz...") {
+            $("#urunModel").prop('disabled', true);;
+        }
+        else {
+            $("#urunModel").prop('disabled', false);
+        }
     });
 
     $("#urunMarka").change(function () {
