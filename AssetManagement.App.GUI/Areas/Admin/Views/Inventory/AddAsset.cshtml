@@ -1,6 +1,175 @@
-﻿
+﻿@model AssetDetailChoicesDTO
+
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_AdminInventoryLayout.cshtml";
 }
 
+<h3>Varlık Kaydı Ekle</h3>
 
+<form method="post" asp-action="AddAsset" asp-controller="Inventory" asp-area="Admin">
+    <div class="form-row mt-3 m-3">
+        <div class="form-group col-md-12" data-bs-toggle="tooltip" data-bs-placement="top" title="Ürünün barkodlu/barkodsuz olduğunu seçiniz">
+            <div class="custom-control custom-switch">
+                <input asp-for="@Model.hasBarcode" type="checkbox" class="custom-control-input " id="barcodeSwitch" checked>
+                <label class="custom-control-label" id="barcodeSwitchLabel" for="barcodeSwitch">Barkodlu ürün</label>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputEmail4" data-bs-toggle="tooltip" data-bs-placement="top" title="Envanter barkod no/yazısını giriniz">Barkod 🛈</label>
+            <input asp-for="@Model.Barcode" type="text" class="form-control" id="urunBarkod" placeholder="Barkod">
+            <span asp-validation-for="Barcode" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputState" data-bs-toggle="tooltip" data-bs-placement="top" title="Envanter Kategorisini seçiniz">Ürün Tipi 🛈</label>
+            <select asp-for="@Model.AssetTypeID" asp-items="@Model.AssetTypeDesc.Select(select=> new SelectListItem { Text = select.Description, Value = select.ID.ToString() })" id="urunTipi" class="form-control">
+                <option selected>Seçiniz...</option>
+            </select>
+            <span asp-validation-for="AssetTypeID" class="text-danger"></span>
+
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputState" data-bs-toggle="tooltip" data-bs-placement="top" title="Envanter kullanım amacını seçiniz">Ürün Grubu 🛈</label>
+            <select asp-for="@Model.AssetGroupID" asp-items="@Model.AssetGroupDesc.Select(select=> new SelectListItem { Text = select.Description, Value = select.ID.ToString() })" id="urunGrubu" class="form-control">
+                <option selected>Seçiniz...</option>
+            </select>
+            <span asp-validation-for="AssetGroupID" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputDate" data-bs-toggle="tooltip" data-bs-placement="top" title="Ürün giriş tarihi">Giriş Tarihi 🛈</label>
+            <input asp-for="@Model.EntryDate" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" class="form-control" id="entryDate" placeholder="Giriş Tarihi">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputState">Marka</label>
+            <select asp-items="@Model.BrandModel.Where(x=>x.isBrand==true).ToList().Select(select=> new SelectListItem { Text = select.Description, Value = select.ID.ToString() })" id="urunMarka" class="form-control">
+                <option selected>Seçiniz...</option>
+            </select>
+            <span asp-validation-for="BrandModelID" class="text-danger"></span>
+
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputState">Model</label>
+            <select asp-for="@Model.BrandModelID" id="urunModel" class="form-control" disabled>
+            </select>
+            <span asp-validation-for="BrandModelID" class="text-danger"></span>
+
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputEmail4" data-bs-toggle="tooltip" data-bs-placement="top" title="Ürün satın alım maliyeti">Ürün Maliyet 🛈</label>
+            <input asp-for="@Model.Cost" type="number" class="form-control" id="urunMaliyet" placeholder="Ürün Maliyet">
+            <span asp-validation-for="Cost" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="inputState" data-bs-toggle="tooltip" data-bs-placement="top" title="Ürün satın alım para birimi">Ürün Para Birimi 🛈</label>
+            <select asp-for="@Model.CostCurrencyID" asp-items="@Model.CostCurrency.Select(select=> new SelectListItem { Text = select.Description, Value = select.ID.ToString() })" id="urunParaBirim" class="form-control">
+                <option selected>Seçiniz...</option>
+            </select>
+            <span asp-validation-for="CostCurrencyID" class="text-danger"></span>
+
+        </div><div class="form-group col-md-3">
+            <label for="inputEmail4" data-bs-toggle="tooltip" data-bs-placement="top" title="Ürün satış fiyatı">Ürün Güncel Fiyat 🛈</label>
+            <input asp-for="@Model.Price" type="number" class="form-control" id="urunGuncelFiyat" placeholder="Ürün Güncel Fiyat">
+            <span asp-validation-for="Price" class="text-danger"></span>
+
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputState" data-bs-toggle="tooltip" data-bs-placement="top" title="Ürün satış fiyat para birimi">Ürün Güncel Fiyat Para Birimi 🛈</label>
+            <select asp-for="@Model.PriceCurrencyID" asp-items="@Model.PriceCurrency.Select(select=> new SelectListItem { Text = select.Description, Value = select.ID.ToString() })" id="urunGuncelParaBirim" class="form-control">
+                <option selected>Seçiniz...</option>
+            </select>
+            <span asp-validation-for="PriceCurrencyID" class="text-danger"></span>
+
+        </div>
+        <div class="form-group col-md-6" data-bs-toggle="tooltip" data-bs-placement="top" title="Ürün garanti kapsamında mı?">
+            <div class="custom-control custom-switch">
+                <input asp-for="@Model.hasGuarrantee" type="checkbox" class="custom-control-input " id="customSwitch1">
+                <label class="custom-control-label" for="customSwitch1">Garanti kapsamında</label>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputDate">Emeklilik Tarihi</label>
+            <input type="datetime-local" class="form-control" id="retireDate" placeholder="Emeklilik Tarihi" disabled>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputState">Birim</label>
+            <select asp-for="@Model.UnitID" asp-items="@Model.Unit.Where(x=>x.isActive==true).ToList().Select(select=> new SelectListItem { Text = select.Description, Value = select.ID.ToString() })" id="urunBirimi" class="form-control" disabled>
+                <option value="-1" selected>Seçiniz...</option>
+            </select>
+            <span asp-validation-for="UnitID" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Miktar</label>
+            <input asp-for="@Model.Quantity" type="number" class="form-control" id="urunMiktar" placeholder="Miktar" disabled>
+            <span asp-validation-for="Quantity" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="aciklamaAlani">Açıklama</label>
+            <textarea asp-for="@Model.AssetDesc" class="form-control" id="aciklamaAlani" rows="3"></textarea>
+
+        </div>
+        <div class="form-group ">
+            <div class="col-md-12 ">
+                <button type="submit" id="submitButton" class="btn btn-primary">Kaydet</button>
+            </div>
+        </div>
+        <div class="form-group ">
+            <div class="col-md-12 ">
+                <a class="btn btn-dark" href="/Admin/Inventory">Geri Dön</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script>
+
+    $("#urunMarka").change(function () {
+        if ($("#urunMarka").val() == "Seçiniz...") {
+            $("#urunModel").prop('disabled', true);
+        }
+        else {
+            $("#urunModel").prop('disabled', false);
+        }
+    });
+
+    $("#urunMarka").change(function () {
+        var brandid = $('#urunMarka').val();
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:5000/api/getmodellistbyid/' + brandid,
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                console.log(data);
+                var total = '<option selected>Seçiniz...</option>';
+                $.each(data, function (index, val) {
+                    var id = val.id;
+                    var name = val.description;
+
+                    total += '<option value="' + id + '">' + name + '</option>'
+
+                });
+                $("#urunModel").empty();
+                $("#urunModel").append(total);
+            }
+        });
+    });
+
+    $("#barcodeSwitch").change(function () {
+        if ($(this).is(":checked")) {
+            $("#barcodeSwitchLabel").text("Barkodlu ürün");
+            $("#urunBirimi").val($("#urunBirimi option:first").val());
+            $("#urunBirimi").prop('disabled', true);
+            $("#urunMiktar").val('').prop('disabled', true);
+            $("#urunBarkod").prop('disabled', false);
+        }
+        else {
+            $("#barcodeSwitchLabel").text("Barkodsuz ürün");
+            $("#urunBirimi").prop('disabled', false);
+            $("#urunMiktar").prop('disabled', false);
+            $("#urunBarkod").val('').prop('disabled', true); 1
+        }
+    });
+
+</script>

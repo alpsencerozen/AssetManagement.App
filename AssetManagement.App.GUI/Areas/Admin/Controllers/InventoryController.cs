@@ -1,5 +1,6 @@
 ﻿using AssetManagement.App.GUI.Models.APIModels;
 using AssetManagement.App.GUI.Provider;
+using AssetManagement.App.GUI.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,26 +15,37 @@ namespace AssetManagement.App.GUI.Areas.Admin.Controllers
     public class InventoryController : Controller
     {
         AssetProvider _assetProvider;
-        public InventoryController(AssetProvider assetProvider)
+        AssetRepository _assetRepo;
+
+        public InventoryController(AssetProvider assetProvider, AssetRepository assetRepo)
         {
             _assetProvider = assetProvider;
+            _assetRepo = assetRepo;
         }
 
-        
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult AddAsset(int a)
+        [HttpGet]
+        public async Task<IActionResult> AddAsset()
         {
-            return View();
+            var assetChoices = await _assetProvider.GetAssetDetailChoices();
+            return View(assetChoices);
         }
 
         [HttpPost]
-        public IActionResult AddAsset()
+        public async Task<IActionResult> AddAsset(AssetDetailChoicesDTO selectedChoices)
         {
-            return RedirectToAction("Index", "Inventory");
+            if (!ModelState.IsValid)
+            {
+                var assetChoices = await _assetProvider.GetAssetDetailChoices();
+                return View(assetChoices);
+            }
+
+            await _assetProvider.CreateAsset(selectedChoices);
+            return RedirectToAction("GetAllAssets", "Inventory");
         }
 
         public async Task<IActionResult> GetAllAssets()
@@ -44,10 +56,33 @@ namespace AssetManagement.App.GUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> ViewAsset(int id)
         {
-            AssetDTO asset = await _assetProvider.GetAssets(id);
-            return View(asset);
+            AssetDetailChoicesDTO assetDetails = await _assetProvider.GetAssetDetailChoicesById(id);
+            ViewBag.BrandList = _assetRepo.GetSelectedBrandList(assetDetails);
+            TempData["hasBarcode"] = assetDetails.hasBarcode;
+            return View(assetDetails);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ViewAsset(AssetDetailChoicesDTO updatedAsset)
+        {
+            if (TempData.ContainsKey("hasBarcode"))
+            {
+                updatedAsset.hasBarcode = bool.Parse(TempData["hasBarcode"].ToString());
+            }
+
+            ModelState.Clear();
+
+            if (!TryValidateModel(updatedAsset))
+            {
+                AssetDetailChoicesDTO assetDetails = await _assetProvider.GetAssetDetailChoicesById(updatedAsset.ID);
+                ViewBag.BrandList = _assetRepo.GetSelectedBrandList(assetDetails);
+                TempData["hasBarcode"] = assetDetails.hasBarcode;
+                return View(assetDetails);
+            }
+
+            await _assetProvider.UpdateAsset(updatedAsset);
+            return RedirectToAction("GetAllAssets", "Inventory");
+        }
 
 
     }

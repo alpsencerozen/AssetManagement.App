@@ -50,17 +50,6 @@ namespace AssetManagement.App.GUI.Areas.User.Controllers
             return RedirectToAction("GetMyAssets", "Inventory");
         }
 
-        public IActionResult AddAssetNoBarcode()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult AddAssetNoBarcode(AssetDetailChoicesDTO selectedChoices)
-        {
-            return View();
-        }
-
         public async Task<IActionResult> GetMyAssets()
         {
             IEnumerable<AssetListDTO> assets = await _assetProvider.GetAssetListItems();
