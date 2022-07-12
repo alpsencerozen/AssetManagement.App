@@ -40,13 +40,14 @@ namespace AssetManagement.App.GUI.Areas.User.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAsset(AssetDetailChoicesDTO selectedChoices)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                await _assetProvider.CreateAsset(selectedChoices);
-                return RedirectToAction("GetMyAssets", "Inventory");
+                var assetChoices = await _assetProvider.GetAssetDetailChoices();
+                return View(assetChoices);
             }
-            var assetChoices = await _assetProvider.GetAssetDetailChoices();
-            return View(assetChoices);
+
+            await _assetProvider.CreateAsset(selectedChoices);
+            return RedirectToAction("GetMyAssets", "Inventory");
         }
 
         public IActionResult AddAssetNoBarcode()
@@ -70,21 +71,30 @@ namespace AssetManagement.App.GUI.Areas.User.Controllers
         {
             AssetDetailChoicesDTO assetDetails = await _assetProvider.GetAssetDetailChoicesById(id);
             ViewBag.BrandList = _assetRepo.GetSelectedBrandList(assetDetails);
+            TempData["hasBarcode"] = assetDetails.hasBarcode;
             return View(assetDetails);
         }
 
         [HttpPost]
         public async Task<IActionResult> ViewAsset(AssetDetailChoicesDTO updatedAsset)
         {
-
-            if (ModelState.IsValid)
+            if (TempData.ContainsKey("hasBarcode"))
             {
-                await _assetProvider.UpdateAsset(updatedAsset);
-                return RedirectToAction("GetMyAssets", "Inventory");
+                updatedAsset.hasBarcode = bool.Parse(TempData["hasBarcode"].ToString());
             }
-            AssetDetailChoicesDTO assetDetails = await _assetProvider.GetAssetDetailChoicesById(updatedAsset.ID);
-            ViewBag.BrandList = _assetRepo.GetSelectedBrandList(assetDetails);
-            return View(assetDetails);
+
+            ModelState.Clear();
+
+            if (!TryValidateModel(updatedAsset))
+            {
+                AssetDetailChoicesDTO assetDetails = await _assetProvider.GetAssetDetailChoicesById(updatedAsset.ID);
+                ViewBag.BrandList = _assetRepo.GetSelectedBrandList(assetDetails);
+                TempData["hasBarcode"] = assetDetails.hasBarcode;
+                return View(assetDetails);
+            }
+
+            await _assetProvider.UpdateAsset(updatedAsset);
+            return RedirectToAction("GetMyAssets", "Inventory");
         }
 
 
