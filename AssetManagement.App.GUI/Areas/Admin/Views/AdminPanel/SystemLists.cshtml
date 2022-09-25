@@ -1,0 +1,89 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
+}
+
+@section Links {
+    <link href="~/templates/startbootstrap-sb-admin-2-gh-pages/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+}
+
+<h3>Admin Panel / System Lists</h3>
+
+<div class="card shadow">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Project
+                        </th>
+                        <th>
+                            Code
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Operation
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            ULTIA
+                        </td>
+                        <td>
+                            Currency
+                        </td>
+                        <td>
+                            Add or Update Currencies
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" asp-area="admin" asp-controller="adminpanel" asp-action="CurrencyList" role="button"><i class="fas fa-edit"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ULTIA
+                        </td>
+                        <td>
+                            Brands
+                        </td>
+                        <td>
+                            Add or Update Brands
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" href="#" role="button"><i class="fas fa-edit"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ULTIA
+                        </td>
+                        <td>
+                            Models
+                        </td>
+                        <td>
+                            Add or Update Models
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" href="#" role="button"><i class="fas fa-edit"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <!-- Page level plugins -->
+    <script src="~/templates/startbootstrap-sb-admin-2-gh-pages/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/templates/startbootstrap-sb-admin-2-gh-pages/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/templates/startbootstrap-sb-admin-2-gh-pages/js/demo/datatables-demo.js"></script>
+}

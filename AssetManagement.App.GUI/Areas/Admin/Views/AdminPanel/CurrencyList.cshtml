@@ -1,21 +1,15 @@
 ﻿
-@model IEnumerable<AssetListDTO>
+@model List<CurrencyDTO>
 
 @{
-    Layout = "~/Views/Shared/_AdminInventoryLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
 }
 
 @section Links {
     <link href="~/templates/startbootstrap-sb-admin-2-gh-pages/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 }
 
-<style>
-    #actionLink4 {
-        font-size: 1.8rem;
-    }
-</style>
-
-<h3>Varlıklarım</h3>
+<h3>Admin Panel / System Lists / Currency</h3>
 
 <div class="card shadow">
     <div class="card-body">
@@ -24,25 +18,13 @@
                 <thead>
                     <tr>
                         <th>
-                            Register Number
+                            Code
                         </th>
                         <th>
-                            Barcode
+                            Description
                         </th>
                         <th>
-                            Asset Group
-                        </th>
-                        <th>
-                            Asset Type
-                        </th>
-                        <th>
-                            Price
-                        </th>
-                        <th>
-                            Brand
-                        </th>
-                        <th>
-                            Model
+                            Operation
                         </th>
                     </tr>
                 </thead>
@@ -51,30 +33,21 @@
                     {
                         <tr>
                             <td>
-                                <a href="/admin/inventory/viewasset/@item.ID">@item.RegistrationNumber</a>
+                                @item.Description
                             </td>
                             <td>
-                                @item.Barcode
+                                Currency
                             </td>
                             <td>
-                                @item.AssetGroupName
-                            </td>
-                            <td>
-                                @item.AssetTypeName
-                            </td>
-                            <td>
-                                @item.Price.ToString("F")
-                            </td>
-                            <td>
-                                @item.Brand
-                            </td>
-                            <td>
-                                @item.Model
+                                <a class="btn btn-warning" href="#" role="button"><i class="fas fa-edit"></i></a>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
+        </div>
+        <div class="col-md-12 ">
+            <a class="btn btn-dark" asp-area="Admin" asp-controller="AdminPanel" asp-action="SystemLists">Geri Dön</a>
         </div>
     </div>
 </div>
@@ -88,5 +61,3 @@
     <!-- Page level custom scripts -->
     <script src="~/templates/startbootstrap-sb-admin-2-gh-pages/js/demo/datatables-demo.js"></script>
 }
-
-

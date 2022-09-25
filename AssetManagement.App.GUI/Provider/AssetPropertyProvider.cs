@@ -34,5 +34,22 @@ namespace AssetManagement.App.GUI.Provider
             }
         }
 
+        public async Task<List<CurrencyDTO>> GetCurrencies()
+        {
+            var models = await _client.GetAsync($"/api/Currency");
+
+            if (models.IsSuccessStatusCode)
+            {
+                var modelsString = await models.Content.ReadAsStringAsync();
+                var modelsJson = JsonConvert.DeserializeObject<List<CurrencyDTO>>(modelsString);
+                return modelsJson;
+            }
+            else
+            {
+
+                return null;
+            }
+        }
+
     }
 }

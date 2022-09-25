@@ -23,7 +23,7 @@
 
     @RenderSection("Links", false)
 
-    <style>
+    @*<style>
         #actionLink1 {
             font-size: 1.5rem;
         }
@@ -43,7 +43,7 @@
         #actionLink5 {
             font-size: 1.5rem;
         }
-    </style>
+    </style>*@
 </head>
 
 <body id="page-top">
@@ -55,10 +55,11 @@
         <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-area="Admin" asp-controller="Inventory" asp-action="Index">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-area="Admin" asp-controller="AdminPanel" asp-action="Index">
                 <div class="sidebar-brand-icon rotate-n-15">
                     @*<i class="fas fa-laugh-wink"></i>*@
-                    <img src="~/images/ultialogo.png" alt="ultia Text" style="transform: rotate(15deg); width:100px" />
+                    <img src="~/images/ultialogo.png" alt="ultia Text" style="transform: rotate(15deg); width:80px; padding-left: 14px; " />
+                    <p style="transform: rotate(15deg); font-size: 0.8rem; margin-bottom: 1px; margin-top: 6px;">Yönetim Paneli</p>
                 </div>
                 @*<div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>*@
             </a>
@@ -67,44 +68,43 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                   aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-plus-circle"></i>
-                    <span>Yeni Kayıt</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Kayıt Seçimi:</h6>
-                        <a class="collapse-item" asp-area="Admin" asp-controller="Inventory" asp-action="AddAsset">Varlık Ekle</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
+            <div class="sidebar-heading mt-3">
                 Arayüz
             </div>
             <li class="nav-item">
-                <a class="nav-link" asp-area="Admin" asp-controller="AdminPanel" asp-action="Index">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Yönetim Paneli</span>
+                <a class="nav-link" asp-area="Admin" asp-controller="AdminPanel" asp-action="SystemLists">
+                    <i class="fas fa-align-justify"></i>
+                    <span>Sistem Listeleri</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-address-book"></i>
+                    <span>Kullanıcı İşlemleri</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                Envanter
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Inventory" asp-action="Index">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Envanter İşlemlerine Dön</span>
                 </a>
             </li>
 
             <!-- Divider -->
-            @*<hr class="sidebar-divider">*@
+        <hr class="sidebar-divider d-none d-md-block">
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
 
         </ul>
         <!-- End of Sidebar -->
@@ -325,7 +325,7 @@
                 </nav>
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
-                <div class="container">
+                @*<div class="container">
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
                         <ul class="navbar-nav nav-fill w-100">
                             <li class="nav-item">
@@ -346,7 +346,7 @@
                         </ul>
                     </nav>
                     <hr />
-                </div>
+                </div>*@
                 <!-- View'a tasinacak -->
                 <div class="container-fluid">
 
