@@ -3,3 +3,4 @@ Admin ve User taraflı envanter takip uygulaması. Barkodlu & barkodsuz ürün e
 
 ### Teknoloji & Framework
 .NET Core 5.0
+FluentValidation
